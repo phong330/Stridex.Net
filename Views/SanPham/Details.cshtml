@@ -1,0 +1,24 @@
+@model SanPham
+@{
+    ViewData["Title"] = Model.Ten;
+}
+<section class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-6">
+            <img class="detail-img" src="@(string.IsNullOrWhiteSpace(Model.Hinh) ? "https://placehold.co/800x600?text=STRIDEX" : Model.Hinh)" alt="@Model.Ten" />
+        </div>
+        <div class="col-lg-6">
+            <span class="badge text-bg-dark">@Model.Loai</span>
+            @if (Model.NoiBat) { <span class="badge text-bg-warning">Nổi bật</span> }
+            <h1 class="fw-bold mt-3">@Model.Ten</h1>
+            <p class="price fs-3">@Model.Gia.ToString("N0") đ</p>
+            <p class="text-muted">@Model.MoTa</p>
+            <form asp-controller="GioHang" asp-action="Them" method="get" class="d-flex gap-2 mt-4">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="number" name="soLuong" value="1" min="1" class="form-control qty" />
+                <button class="btn btn-dark btn-lg">Thêm vào giỏ</button>
+            </form>
+            <a asp-action="Index" class="btn btn-link mt-3">← Quay lại sản phẩm</a>
+        </div>
+    </div>
+</section>

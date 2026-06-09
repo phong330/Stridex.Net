@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Quản trị";
+}
+<section class="container py-5">
+    <h1 class="fw-bold mb-4">Trang quản trị STRIDEX</h1>
+    <div class="row g-4">
+        <div class="col-md-4"><div class="stat-card"><span>Sản phẩm</span><strong>@ViewBag.SoSanPham</strong></div></div>
+        <div class="col-md-4"><div class="stat-card"><span>Đơn hàng</span><strong>@ViewBag.SoDonHang</strong></div></div>
+        <div class="col-md-4"><div class="stat-card"><span>Người dùng</span><strong>@ViewBag.SoNguoiDung</strong></div></div>
+    </div>
+    <div class="mt-4 d-flex flex-wrap gap-2">
+        <a asp-action="SanPham" class="btn btn-dark">Quản lý sản phẩm</a>
+        <a asp-action="DonHang" class="btn btn-outline-dark">Quản lý đơn hàng</a>
+        <a asp-action="NguoiDung" class="btn btn-outline-dark">Người dùng</a>
+    </div>
+</section>

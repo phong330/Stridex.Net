@@ -1,0 +1,31 @@
+@model List<SanPham>
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+<section class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">Quản lý sản phẩm</h1>
+        <a asp-action="ThemSanPham" class="btn btn-dark">+ Thêm sản phẩm</a>
+    </div>
+    <div class="card border-0 shadow-sm table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>ID</th><th>Tên</th><th>Loại</th><th>Giá</th><th>Nổi bật</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var sp in Model)
+            {
+                <tr>
+                    <td>@sp.Id</td>
+                    <td><strong>@sp.Ten</strong></td>
+                    <td>@sp.Loai</td>
+                    <td>@sp.Gia.ToString("N0") đ</td>
+                    <td>@(sp.NoiBat ? "Có" : "Không")</td>
+                    <td class="text-end">
+                        <a asp-action="SuaSanPham" asp-route-id="@sp.Id" class="btn btn-sm btn-outline-dark">Sửa</a>
+                        <a asp-action="XoaSanPham" asp-route-id="@sp.Id" onclick="return confirm('Xoá sản phẩm này?')" class="btn btn-sm btn-outline-danger">Xoá</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

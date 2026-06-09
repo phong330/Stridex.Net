@@ -1,0 +1,51 @@
+@model SanPham
+@{
+    var isEdit = Model.Id > 0;
+    ViewData["Title"] = isEdit ? "Sửa sản phẩm" : "Thêm sản phẩm";
+    var action = isEdit ? "SuaSanPham" : "ThemSanPham";
+}
+<section class="container py-5">
+    <h1 class="fw-bold mb-4">@(isEdit ? "Sửa sản phẩm" : "Thêm sản phẩm")</h1>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <form asp-action="@action" method="post">
+                <input asp-for="Id" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label asp-for="Ten" class="form-label"></label>
+                        <input asp-for="Ten" class="form-control" />
+                        <span asp-validation-for="Ten" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Loai" class="form-label"></label>
+                        <input asp-for="Loai" class="form-control" placeholder="Giay, Ao, Quan, Bong..." />
+                        <span asp-validation-for="Loai" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Gia" class="form-label"></label>
+                        <input asp-for="Gia" class="form-control" />
+                        <span asp-validation-for="Gia" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="Hinh" class="form-label"></label>
+                        <input asp-for="Hinh" class="form-control" placeholder="https://..." />
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="MoTa" class="form-label"></label>
+                        <textarea asp-for="MoTa" class="form-control" rows="4"></textarea>
+                    </div>
+                    <div class="col-12 form-check ms-2">
+                        <input asp-for="NoiBat" class="form-check-input" />
+                        <label asp-for="NoiBat" class="form-check-label"></label>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-dark">Lưu</button>
+                    <a asp-action="SanPham" class="btn btn-outline-dark">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

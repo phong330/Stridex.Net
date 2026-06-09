@@ -1,0 +1,24 @@
+@model List<DonHang>
+@{
+    ViewData["Title"] = "Lịch sử đơn hàng";
+}
+<section class="container py-5">
+    <h1 class="fw-bold mb-4">Lịch sử đơn hàng</h1>
+    <div class="card border-0 shadow-sm table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var dh in Model)
+            {
+                <tr>
+                    <td><strong>@dh.MaDonHang</strong></td>
+                    <td>@dh.NgayDat.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@dh.TongTien.ToString("N0") đ</td>
+                    <td><span class="badge text-bg-secondary">@dh.TrangThai</span></td>
+                    <td><a asp-action="ChiTiet" asp-route-id="@dh.Id" class="btn btn-sm btn-outline-dark">Chi tiết</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

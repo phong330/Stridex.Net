@@ -1,0 +1,51 @@
+@model List<GioHangItem>
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    var tongTien = Model.Sum(x => x.ThanhTien);
+}
+<section class="container py-5">
+    <h1 class="fw-bold mb-4">Giỏ hàng</h1>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">Giỏ hàng đang rỗng.</div>
+        <a asp-controller="SanPham" asp-action="Index" class="btn btn-dark">Tiếp tục mua hàng</a>
+    }
+    else
+    {
+        <div class="table-responsive card border-0 shadow-sm">
+            <table class="table align-middle mb-0">
+                <thead><tr><th>Sản phẩm</th><th>Giá</th><th>Số lượng</th><th>Thành tiền</th><th></th></tr></thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <img class="thumb" src="@(string.IsNullOrWhiteSpace(item.Hinh) ? "https://placehold.co/80" : item.Hinh)" />
+                                <strong>@item.Ten</strong>
+                            </div>
+                        </td>
+                        <td>@item.Gia.ToString("N0") đ</td>
+                        <td>
+                            <form asp-action="CapNhat" method="post" class="d-flex gap-2">
+                                <input type="hidden" name="sanPhamId" value="@item.SanPhamId" />
+                                <input type="number" min="0" name="soLuong" value="@item.SoLuong" class="form-control qty" />
+                                <button class="btn btn-outline-dark btn-sm">Cập nhật</button>
+                            </form>
+                        </td>
+                        <td><strong>@item.ThanhTien.ToString("N0") đ</strong></td>
+                        <td><a asp-action="Xoa" asp-route-id="@item.SanPhamId" class="btn btn-outline-danger btn-sm">Xoá</a></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mt-4 gap-3">
+            <a asp-controller="SanPham" asp-action="Index" class="btn btn-outline-dark">Tiếp tục mua</a>
+            <div class="text-end">
+                <div class="fs-4 fw-bold">Tổng tiền: @tongTien.ToString("N0") đ</div>
+                <a asp-controller="DonHang" asp-action="ThanhToan" class="btn btn-dark btn-lg mt-2">Thanh toán</a>
+            </div>
+        </div>
+    }
+</section>

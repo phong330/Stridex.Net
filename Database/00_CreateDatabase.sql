@@ -1,0 +1,5 @@
+IF DB_ID(N'StridexDB') IS NULL
+BEGIN
+    CREATE DATABASE StridexDB;
+END
+GO

@@ -1,0 +1,37 @@
+@model List<DonHang>
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+}
+<section class="container py-5">
+    <h1 class="fw-bold mb-4">Quản lý đơn hàng</h1>
+    <div class="card border-0 shadow-sm table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var dh in Model)
+            {
+                <tr>
+                    <td><strong>@dh.MaDonHang</strong></td>
+                    <td>@dh.TenNguoiDung</td>
+                    <td>@dh.NgayDat.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@dh.TongTien.ToString("N0") đ</td>
+                    <td>
+                        <form asp-action="CapNhatTrangThai" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="id" value="@dh.Id" />
+                            <select name="trangThai" class="form-select form-select-sm">
+                                <option selected="@(dh.TrangThai=="Chờ xác nhận")">Chờ xác nhận</option>
+                                <option selected="@(dh.TrangThai=="Đã xác nhận")">Đã xác nhận</option>
+                                <option selected="@(dh.TrangThai=="Đang giao")">Đang giao</option>
+                                <option selected="@(dh.TrangThai=="Hoàn thành")">Hoàn thành</option>
+                                <option selected="@(dh.TrangThai=="Đã huỷ")">Đã huỷ</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-dark">Lưu</button>
+                        </form>
+                    </td>
+                    <td><a asp-action="ChiTietDonHang" asp-route-id="@dh.Id" class="btn btn-sm btn-dark">Chi tiết</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,36 @@
+@model DangKyViewModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+<section class="container py-5 auth-wrap">
+    <div class="card border-0 shadow-sm auth-card">
+        <div class="card-body p-4">
+            <h1 class="fw-bold mb-3">Đăng ký</h1>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                <div class="mb-3">
+                    <label asp-for="HoTen" class="form-label">Họ tên</label>
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MatKhau" class="form-label">Mật khẩu</label>
+                    <input asp-for="MatKhau" class="form-control" />
+                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NhapLaiMatKhau" class="form-label">Nhập lại mật khẩu</label>
+                    <input asp-for="NhapLaiMatKhau" class="form-control" />
+                    <span asp-validation-for="NhapLaiMatKhau" class="text-danger"></span>
+                </div>
+                <button class="btn btn-dark w-100">Tạo tài khoản</button>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
