@@ -1,6 +1,7 @@
 using StridexFinal_CSharp.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using StridexFinal_CSharp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -28,6 +29,7 @@ builder.Services.AddScoped<Db>();
 builder.Services.AddScoped<SanPhamRepository>();
 builder.Services.AddScoped<NguoiDungRepository>();
 builder.Services.AddScoped<DonHangRepository>();
+builder.Services.AddScoped<VnPayService>();
 
 var app = builder.Build();
 
