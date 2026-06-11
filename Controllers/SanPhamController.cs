@@ -12,14 +12,36 @@ public class SanPhamController : Controller
         _repo = repo;
     }
 
-    public async Task<IActionResult> Index(string? tuKhoa, string? loai, string? sort)
+    public async Task<IActionResult> Index(
+        string? tuKhoa,
+        string? loai,
+        string? sort,
+        int page = 1)
     {
+        int pageSize = 20;
+
         ViewBag.Loai = await _repo.GetLoaiAsync();
         ViewBag.TuKhoa = tuKhoa;
         ViewBag.LoaiChon = loai;
         ViewBag.Sort = sort;
+
         var list = await _repo.GetAllAsync(tuKhoa, loai, sort);
-        return View(list);
+
+        int totalItems = list.Count;
+        int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        if (page < 1) page = 1;
+        if (page > totalPages && totalPages > 0) page = totalPages;
+
+        var pagedList = list
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
+
+        return View(pagedList);
     }
 
     public async Task<IActionResult> Details(int id)
