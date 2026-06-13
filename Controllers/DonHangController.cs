@@ -9,7 +9,6 @@ namespace StridexFinal_CSharp.Controllers;
 public class DonHangController : Controller
 {
     private const string CartKey = "GioHang";
-
     private readonly DonHangRepository _repo;
     private readonly VnPayService _vnPayService;
 
@@ -51,7 +50,9 @@ public class DonHangController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> ThanhToan(ThanhToanViewModel model)
+    public async Task<IActionResult> ThanhToan(
+        ThanhToanViewModel model,
+        string action)
     {
         var userId = HttpContext.Session.GetInt32("UserId");
 
@@ -78,6 +79,18 @@ public class DonHangController : Controller
             gioHang
         );
 
+        // Đặt hàng thường
+        if (action == "COD")
+        {
+            HttpContext.Session.Remove(CartKey);
+
+            TempData["Success"] =
+                "Đặt hàng thành công";
+
+            return RedirectToAction(nameof(LichSu));
+        }
+
+        // Thanh toán VNPay
         var tongTien = gioHang.Sum(x => x.ThanhTien);
 
         HttpContext.Session.Remove(CartKey);
